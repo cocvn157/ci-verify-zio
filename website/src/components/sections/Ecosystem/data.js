@@ -1,0 +1,133 @@
+export const ecosystemProjects = [
+  {
+    name: 'ZIO Blocks',
+    description: 'Modular, zero-dependency building blocks for modern Scala applications',
+    features: [
+      'Type-safe schemas with automatic codec derivation',
+      'Zero lock-in — no dependency on ZIO or any effect system',
+      'Works with any Scala stack: ZIO, Cats Effect, Kyo, Ox, Akka, or plain Scala',
+      'Modular — import only the blocks you need',
+      'Full cross-platform support for JVM and Scala.js',
+      'Full cross-version support for Scala 2.13 and Scala 3.x',
+      'High-performance implementations avoiding boxing and unnecessary allocations',
+      'Includes Schema, Chunk, Scope, Docs, TypeId, Context, MediaType, and Ring Buffer blocks',
+    ],
+    link: 'https://zioblocks.com',
+    // Full wordmark: the mark doubles as the "Z", so no separate name is rendered
+    logo: {
+      light: '/img/ecosystem/zio-blocks-logo.svg',
+      dark: '/img/ecosystem/zio-blocks-logo-on-dark.svg'
+    }
+  },
+  {
+    name: 'ZIO HTTP',
+    description: 'Type-safe, purely functional HTTP library for high-performance web apps and APIs',
+    features: [
+      'High-performance server based on Netty',
+      'Type-safe and type-driven endpoints',
+      'WebSocket support for real-time applications',
+      'Middleware system for cross-cutting concerns',
+    ],
+    link: 'https://ziohttp.com',
+    icon: {
+      light: '/img/ecosystem/zio-http-logo-mark-light.svg',
+      dark: '/img/ecosystem/zio-http-logo-mark-dark.svg'
+    }
+  },
+  {
+    name: 'ZIO Streams',
+    description: 'Powerful, composable, and type-safe streaming library for working with large or infinite data',
+    features: [
+      'Process infinite streams with finite memory resource',
+      'Automatic backpressure handling',
+      'Rich set of stream combinators',
+      'Non-blocking and asynchronous processing',
+    ],
+    link: '/reference/stream',
+    icon: '🔗'
+  },
+  {
+    name: 'ZIO Test',
+    description: 'Feature-rich testing framework with powerful assertions and property-based testing',
+    features: [
+      'Property-based testing out of the box',
+      'Deterministic testing of concurrent code',
+      'Test aspects for reusable configurations',
+      'Integration with JUnit and other frameworks'
+    ],
+    link: '/reference/test',
+    icon: '✅'
+  },
+  {
+    name: 'ZIO STM',
+    description: 'Software Transactional Memory for safe, composable concurrent programming',
+    features: [
+      'Atomic, isolated transactions',
+      'Composable concurrent operations',
+      'No deadlocks or race conditions',
+      'Automatic retry of interrupted transactions'
+    ],
+    link: '/reference/stm',
+    icon: '🔒'
+  },
+  {
+    name: 'ZIO Schema',
+    description: 'Declarative schema definitions for data structures with automatic derivation',
+    features: [
+      'Reification of data structures',
+      'Manual and automatic schema derivation',
+      'Built-in codecs for JSON, Protobuf, Avro, and Thrift',
+      'Schema transformations and migrations',
+    ],
+    link: '/zio-schema',
+    icon: '🧬'
+  },
+  {
+    name: 'ZIO Config',
+    description: 'Type-safe, composable configuration management with automatic documentation',
+    features: [
+      'Type-safe configuration descriptions',
+      'Multiple source support (files, env vars)',
+      'Automatic documentation generation',
+      'Validation with detailed error reporting'
+    ],
+    link: '/zio-config',
+    icon: '⚙️'
+  },
+  {
+    name: 'ZIO Logging',
+    description: 'High-performance, structured logging with contextual information',
+    features: [
+      'Structured logging for ZIO applications',
+      'Multiple backend support (SLF4J, JPL, Console)',
+      'Context-aware logging with MDC support',
+      'Log correlation across async boundaries'
+    ],
+    link: '/zio-logging',
+    icon: '📝'
+  },
+  {
+    name: 'ZIO JSON',
+    description: 'Fast, secure JSON library with tight ZIO integration',
+    features: [
+      'High-performance parsing and encoding',
+      'Hardened against adversarial JSON payloads',
+      'Automatic derivation, no shapeless required',
+      'Human- and machine-readable error messages'
+    ],
+    link: '/zio-json',
+    icon: '📦'
+  },
+  {
+    name: 'ZIO Kafka',
+    description: 'A purely functional, streams-based client for Apache Kafka',
+    features: [
+      'High-level streaming API on top of the Java Kafka client',
+      'Higher throughput than the Java client in most workloads',
+      'Parallel per-partition consumption',
+      'Custom serialization and deserialization support'
+    ],
+    link: '/zio-kafka',
+    icon: '📨'
+  }
+];

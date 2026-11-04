@@ -1,0 +1,74 @@
+---
+id: union-types
+title: "Use Union Types to Be More Specific About Error Types"
+sidebar_label: "Union Types"
+description: "Use Scala 3 union types to compose unrelated error types without a shared supertype, giving precise error signatures in ZIO effects."
+keywords:
+  - "union types"
+  - "Scala 3"
+  - "error types"
+  - "FooError | BarError"
+  - "error composition"
+  - "typed errors"
+---
+
+:::note[Scala 3 only]
+Union types (`FooError | BarError`) are a Scala 3 feature. If you are using Scala 2, use sealed traits to model domain errors instead — see [Model Domain Errors Using Algebraic Data Types](algebraic-data-types.md).
+:::
+
+In Scala 3, we have an exciting new feature called union types. By using the union operator, we can encode multiple error types. Using this facility, we can have more precise information on typed errors.
+
+## When to Use
+
+Use union types (`FooError | BarError`) when composing errors from unrelated sources that share no meaningful domain supertype — this keeps each error type independent and eliminates the need for a wrapper hierarchy. Use [algebraic data types (sealed traits)](algebraic-data-types.md) instead when the errors belong to the same domain and you want the compiler to enforce exhaustive pattern-matching across the entire error family. In Scala 2, sealed traits are the only option; union types require Scala 3.
+
+Let's see an example of `Storage` service which have `upload`, `download` and `delete` API:
+
+```scala
+import zio._
+
+type Name = String
+
+enum StorageError extends Exception {
+  case ObjectExist(name: Name)            extends StorageError
+  case ObjectNotExist(name: Name)         extends StorageError
+  case PermissionDenied(cause: String)    extends StorageError
+  case StorageLimitExceeded(limit: Int)   extends StorageError
+  case BandwidthLimitExceeded(limit: Int) extends StorageError
+}
+
+import StorageError.*
+
+trait Storage {
+  def upload(
+      name: Name,
+      obj: Array[Byte]
+  ): ZIO[Any, ObjectExist | StorageLimitExceeded, Unit]
+
+  def download(
+      name: Name
+  ): ZIO[Any, ObjectNotExist | BandwidthLimitExceeded, Array[Byte]]
+
+  def delete(name: Name): ZIO[Any, ObjectNotExist | PermissionDenied, Unit]
+}
+```
+
+Union types allow us to get rid of the requirement to extend some sort of common error types like `Exception` or `Throwable`. This allows us to have completely unrelated error types.
+
+In the following example, the `FooError` and `BarError` are two distinct error. They have no super common type like `FooBarError` and also they are not extending `Exception` or `Throwable` classes:
+
+```scala
+import zio.*
+
+// Two unrelated errors without having a common supertype
+trait FooError
+trait BarError
+
+def foo: IO[FooError, Nothing] = ZIO.fail(new FooError {})
+def bar: IO[BarError, Nothing] = ZIO.fail(new BarError {})
+
+val myApp: ZIO[Any, FooError | BarError, Unit] = for {
+  _ <- foo
+  _ <- bar
+} yield ()
+```
